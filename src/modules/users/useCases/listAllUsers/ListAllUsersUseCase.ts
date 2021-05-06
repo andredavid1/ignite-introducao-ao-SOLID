@@ -16,7 +16,7 @@ class ListAllUsersUseCase {
     }
 
     if (user.admin === false) {
-      throw new Error("User is not allowed to access this data.");
+      throw new Error("Usuário não autorizado.");
     }
 
     const allUsers = this.usersRepository.list();

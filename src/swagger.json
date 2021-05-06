@@ -1,0 +1,99 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Desafio de Introdução ao SOLID",
+    "description": "Essa aplicação foi desenvolvida, seguindo as instruções de um desafio proposto no Ignite",
+    "version": "1.0.0",
+    "contact": {
+      "email": "andredavid1@yahoo.com.br"
+    }
+  },
+  "paths": {
+    "/users": {
+      "post": {
+        "tags": ["Usuários"],
+        "summary": "Criar Usuário",
+        "description": "Criar um novo usuário, sendo que não será permitido dois usuários com o mesmo e-mail.",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "name": "Novo Usuário",
+                  "email": "novousuario@email.com"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Criado"
+          },
+          "400": {
+            "description": "Já existe um usuário cadastrado com esse e-mail."
+          }
+        }
+      },
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Listar Usuários",
+        "description": "Só deve listar usuários, se o usuário logado for administrador.",
+        "parameters": {
+          "name": "user_id",
+          "in": "header",
+          "description": "an authorization header",
+          "required": true,
+          "type": "string"
+        },
+        "responses": {
+          "200": {
+            "description": "Sucesso"           
+          },
+          "400": {
+            "description": "Usuário não autorizado."
+          }
+        }
+      }
+    },
+    "/users/:user_id/admin": {
+      "patch": {
+        "tags": ["Usuários"],
+        "summary": "Tornar administrador",
+        "description": "Permite tornar o usuário administrador do sistema.",
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          }
+        }
+      }
+    },
+    "/users/:user_id": {
+      "get": {
+        "tags": ["Usuários"],
+        "summary": "Mostrar perfil do usuário",
+        "description": "Exibe o perfil do usuário.",
+        "responses": {
+          "200": {
+            "description": "Sucesso"
+          },
+          "404": {
+            "description": "Usuário não encontrado."
+          }
+        }
+      }
+    }
+  }
+}
